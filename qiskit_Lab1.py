@@ -47,3 +47,5 @@ def dj_algo(n, case = 'Random'):
         dj_circuit.h(i)
         dj_circuit.measure(i, i)
     return dj_circuit
+
+print('Dutche-Joza Algo')
