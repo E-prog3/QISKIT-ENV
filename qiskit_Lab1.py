@@ -48,4 +48,22 @@ def dj_algo(n, case = 'Random'):
         dj_circuit.measure(i, i)
     return dj_circuit
 
-print('Dutche-Joza Algo')
+n = 4
+dj_circuit = dj_algo(n)
+draw_Circuit = dj_circuit.draw()
+
+backend = BasicAer.get_backend('qasm_simulator')
+shots = 1024
+dj_circuit = dj_algo(n)
+results = execute(dj_circuit, backend=backend, shots=shots).result()
+answer = results.get_counts()
+
+HISTO = plot_histogram(answer)
+
+print(draw_Circuit)
+print('Dutche-Joza Circuit')
+print(HISTO) # Unable to view (Figure 700x500)
+
+backend = least_busy(provider.backends(filters = lambda x: x.configuration().n_qubits >= (n+1) and
+                                       not x.configuration().simulator and x.status().operational==True))
+print('least busy')
